@@ -1,0 +1,132 @@
+
+% ############################################################################
+% Пакеты
+
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\usepackage{scalefnt}
+
+\usetikzlibrary{shapes, snakes, arrows, automata, positioning, calc, backgrounds, datavisualization}
+\usepgfplotslibrary{patchplots}
+
+% ############################################################################
+% Окружение для рисунков
+
+%
+% \mimagebegin{Метка в image:}{Подпись}
+%
+% Рисунок
+%
+% \mimageend
+%
+
+\newcommand{\mimagecaption}{}
+
+\newcommand{\mimagebegin}[2]
+{
+	\begin{samepage}
+	\centering
+	\refstepcounter{figure}
+    \label{image:#1}
+
+	\renewcommand{\mimagecaption}{\vbox{\centering Рисунок~\thefigure~---~#2}}
+}
+
+\newcommand{\mimageend}
+{
+	\\
+	\medskip
+	\mimagecaption
+	\medskip
+	\end{samepage}
+}
+
+\newcommand{\mimage}[4]
+{
+	\vbox
+	{
+		\begin{center}
+
+			\refstepcounter{figure}
+			\label{image:#1}
+			
+			\includegraphics[#4]{#2}
+
+			\medskip
+			{\noindent \small Рисунок~\thefigure~---~#3}
+
+		\end{center}
+	}
+}
+
+% #################################################################
+% Алгоритмы
+
+\newcommand{\prevstep}{}
+\newcommand{\currentdist}{}
+
+\newcommand{\algo}[1]
+{
+\begin{tikzpicture}
+
+	\tikzstyle {size}		=	[minimum height = 6em,		minimum width =	9em,	text width = 9em,	text centered, inner sep = 0]
+	\tikzstyle {drw}		=	[																		draw, line width = 1pt]
+	% TODO \tikzstyle {if}			=	[						minimum width = 5em,	text width = 5em,	drw, diamond, aspect = 3.5]
+	\tikzstyle {do}			=	[																		drw, size, rectangle]
+	\tikzstyle {begin-end}	=	[minimum height = 3em,		minimum width = 9em,	text width = 9em,	drw, rectangle, text centered, rounded corners = 1em]
+	\tikzstyle {io}			=	[																		size, rectangle]
+	\tikzstyle {connector}	=	[minimum height = 2.5em,	minimum width = 2.5em,	text width = 2.5em,	drw, circle, text centered]
+
+	\tikzstyle {dist}					=	[node distance = 7em];
+	\tikzstyle {dist-connector-begin}	=	[node distance = 5.5em];
+	\tikzstyle {dist-connector-end}		=	[node distance = 12em];
+	\tikzstyle {dist-begin-end}			=	[node distance = 5.5em];
+
+	\tikzstyle {mpath} = [->, very thick, line width = 2pt]
+
+	\node [begin-end] (begin) {Начало};
+	\renewcommand{\prevstep}{begin}
+	\renewcommand{\currentdist}{dist-begin-end}
+	#1
+	\node [begin-end, dist-begin-end, below of = \prevstep] (end) {Конец};
+	\draw [mpath] (\prevstep) -- (end);
+
+\end{tikzpicture}
+}
+
+\newcommand{\io}[2]
+{
+	\node [io, \currentdist, below of = \prevstep] (#1) {#2};
+	\draw [drw] (#1.130) -- (#1.north east) -- (#1.-50) -- (#1.south west) -- (#1.130);
+	\draw [mpath] (\prevstep) -- (#1);
+
+	\renewcommand{\prevstep}{#1}
+	\renewcommand{\currentdist}{dist}
+}
+
+\newcommand{\doif}[2]
+{
+	\node [do, \currentdist, below of = \prevstep] (#1) {#2};
+	\draw [mpath] (\prevstep) -- (#1);
+
+	\renewcommand{\prevstep}{#1}
+	\renewcommand{\currentdist}{dist}
+}
+
+\newcommand{\connector}[2]
+{
+	\node [connector, dist-connector-begin, below of = \prevstep] (#1-begin) {#1};
+	\node [connector, dist-connector-end, right of = #2] (#1-end) {#1};
+	\draw [mpath] (\prevstep) -- (#1-begin);
+
+	\renewcommand{\prevstep}{#1-end}
+	\renewcommand{\currentdist}{dist-connector-begin}
+}
+
+% #################################################################
+% Разное
+
+% Путь к каталогу с изображениями
+\graphicspath{{image/}}
+

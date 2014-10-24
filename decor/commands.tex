@@ -1,0 +1,61 @@
+
+\newcommand{\TODO}[1]{\colorbox{yellow}{\bf TODO #1}}
+% \newcommand{\TODO}[1]{}
+
+\newcommand{\FIXME}[1]{\colorbox{red}{\bf FIXME #1}}
+% \newcommand{\FIXME}[1]{}
+
+\newcommand{\myfloatbase}[2]{\pgfmathprintnumber[fixed, fixed zerofill, precision = 3, use comma, #2]{#1}}
+\newcommand{\myfloat}[1]{\myfloatbase{#1}{}}
+\newcommand{\myfloatbf}[1]{\bf \myfloatbase{#1}{assume math mode = true}}
+
+% ############################################################################
+% Структура
+
+\newcommand{\mytitle}[1]{\input{content/title}}
+
+\newcommand{\mycontents}
+{
+	\renewcommand*\contentsname{\Large Оглавление}
+	\tableofcontents
+	\clearpage
+}
+
+\newcommand{\myliterature}
+{
+	\addcontentsline{toc}{chapter}{\bibname}
+	\bibliography{/home/amv/books/biblio}
+}
+
+\newcommand{\myappendix}[3]
+{
+	\appendix
+	\chapter{#2} \label{appendix:#1}
+	\input{#3}
+}
+
+\newcommand{\mychaptervn}[1]
+{
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}
+}
+
+\titleformat{\chapter}
+     {\large\bfseries}
+     {\thechapter.}
+     {1em}{}
+  
+\titleformat{\section}
+     {\normalsize\bfseries}
+     {\thesection}
+     {1em}{}
+  
+\titleformat{\subsection}
+     {\normalsize\bfseries}
+     {\thesubsection}
+     {1em}{}
+
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*4}{*4} 
+

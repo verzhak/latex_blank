@@ -1,0 +1,107 @@
+
+\documentclass[a4paper,14pt]{extreport}
+
+% ############################################################################
+% Пакеты
+
+\usepackage{pdflscape}																	% Альбомные страницы
+\usepackage{geometry}
+\usepackage{floatrow}
+\usepackage{cmap}																		% Улучшенный поиск русских слов в полученном pdf-файле
+\usepackage[T2A]{fontenc}																% Поддержка русских букв
+\usepackage[utf8]{inputenc}																% Кодировка utf8
+\usepackage[english, russian]{babel}													% Языки: русский, английский
+\usepackage{pscyr}																		% Красивые русские шрифты
+\usepackage{amsthm, amsfonts, amsmath, amssymb, amscd}									% Математика
+\usepackage{indentfirst}																% Красная строка
+\usepackage[usenames]{color}															% Цвета
+\usepackage{colortbl}																	% Цвета
+\usepackage{longtable, ltxtable}														% Таблицы
+\usepackage{multirow, makecell, array}													% Улучшенное форматирование таблиц
+\usepackage{titlesec}
+\usepackage[singlelinecheck = off, center]{caption}										% Многострочные подписи
+\usepackage{soul}																		% Поддержка переносоустойчивых подчёркиваний и зачёркиваний
+\usepackage{cite}
+\usepackage[linktocpage = true, plainpages = false, pdfpagelabels = false]{hyperref}	% Гиперссылки (hidelinks - скрывает красный прямоугольник вокруг ссылки)
+\usepackage{graphicx}																	% Изображения
+\usepackage{tocloft}																	% Оглавление
+\usepackage{xspace}
+\usepackage{etoolbox}
+\usepackage{enumitem}
+\usepackage[singlespacing]{setspace}
+
+% ############################################################################
+% Общий стиль
+
+\geometry{a4paper, top = 2cm, bottom = 2cm, left = 2cm, right = 2cm}
+
+% Кодировки и шрифты
+\renewcommand{\rmdefault}{ftm}		% Times New Roman
+\fontsize{12pt}{13pt}\selectfont
+
+% Выравнивание и переносы
+\sloppy								% Избавляемся от переполнений
+\clubpenalty=10000					% Запрещаем разрыв страницы после первой строки абзаца
+\widowpenalty=10000					% Запрещаем разрыв страницы после последней строки абзаца
+
+% Оглавление
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+
+% ############################################################################
+% Гиперссылки
+
+\definecolor{linkcolor}{rgb}{0.9,0,0}
+\definecolor{citecolor}{rgb}{0,0.6,0}
+\definecolor{urlcolor}{rgb}{0,0,1}
+\hypersetup
+{
+	colorlinks, linkcolor = {linkcolor},
+	citecolor = {citecolor}, urlcolor = {urlcolor}
+}
+
+% ############################################################################
+% Переопределение именований
+
+\renewcommand{\abstractname}{Аннотация}
+\newcommand{\alsoname}{см. также}
+\renewcommand{\appendixname}{Приложение}
+\renewcommand{\bibname}{Литература}
+\newcommand{\ccname}{исх.}
+\renewcommand{\chaptername}{Глава}
+\renewcommand{\contentsname}{Содержание}
+\newcommand{\enclname}{вкл.}
+\renewcommand{\figurename}{Рисунок}
+\newcommand{\headtoname}{вх.}
+\renewcommand{\indexname}{Предметный указатель}
+\renewcommand{\listfigurename}{Список рисунков}
+\renewcommand{\listtablename}{Список таблиц}
+\newcommand{\pagename}{Стр.}
+\renewcommand{\partname}{Часть}
+\newcommand{\refname}{Список литературы}
+\newcommand{\seename}{см.}
+\renewcommand{\tablename}{Таблица}
+
+% ############################################################################
+% Списки
+
+\setenumerate[1]{label = {\arabic*)}}
+\setenumerate[2]{label = {\arabic{enumi}.\arabic{enumii}})}
+\setenumerate[3]{label = {\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}})}
+\setenumerate[4]{label = {\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}})}
+\setenumerate[5]{label = {\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}.\arabic{enumv}})}
+
+% ############################################################################
+% Библиография
+
+\makeatletter
+\bibliographystyle{decor/utf8gost705u}	% Оформляем библиографию в соответствии с ГОСТ 7.0.5
+\renewcommand{\@biblabel}[1]{#1.}	% Заменяем библиографию с квадратных скобок на точку:
+\makeatother
+
+% ############################################################################
+% Прочее
+
+\input{decor/images}
+\input{decor/commands}
+\input{decor/short}
+

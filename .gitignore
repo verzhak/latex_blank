@@ -1,0 +1,4 @@
+build
+*.swp
+trash
+.scons*
