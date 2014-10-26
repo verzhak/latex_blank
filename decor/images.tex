@@ -66,13 +66,13 @@
 \newcommand{\prevstep}{}
 \newcommand{\currentdist}{}
 
-\newcommand{\algo}[1]
+\newcommand{\myalgo}[1]
 {
 \begin{tikzpicture}
 
 	\tikzstyle {size}		=	[minimum height = 6em,		minimum width =	9em,	text width = 9em,	text centered, inner sep = 0]
-	\tikzstyle {drw}		=	[																		draw, line width = 1pt]
-	% TODO \tikzstyle {if}			=	[						minimum width = 5em,	text width = 5em,	drw, diamond, aspect = 3.5]
+	\tikzstyle {drw}		=	[																		draw, line width = 1pt, text centered]
+	\tikzstyle {if}			=	[							minimum width = 5em,	text width = 5em,	drw, diamond, aspect = 3.5, inner sep = 0pt]
 	\tikzstyle {do}			=	[																		drw, size, rectangle]
 	\tikzstyle {begin-end}	=	[minimum height = 3em,		minimum width = 9em,	text width = 9em,	drw, rectangle, text centered, rounded corners = 1em]
 	\tikzstyle {io}			=	[																		size, rectangle]
@@ -95,7 +95,7 @@
 \end{tikzpicture}
 }
 
-\newcommand{\io}[2]
+\newcommand{\myio}[2]
 {
 	\node [io, \currentdist, below of = \prevstep] (#1) {#2};
 	\draw [drw] (#1.130) -- (#1.north east) -- (#1.-50) -- (#1.south west) -- (#1.130);
@@ -105,7 +105,7 @@
 	\renewcommand{\currentdist}{dist}
 }
 
-\newcommand{\doif}[2]
+\newcommand{\mydo}[2]
 {
 	\node [do, \currentdist, below of = \prevstep] (#1) {#2};
 	\draw [mpath] (\prevstep) -- (#1);
@@ -114,7 +114,7 @@
 	\renewcommand{\currentdist}{dist}
 }
 
-\newcommand{\connector}[2]
+\newcommand{\myconnector}[2]
 {
 	\node [connector, dist-connector-begin, below of = \prevstep] (#1-begin) {#1};
 	\node [connector, dist-connector-end, right of = #2] (#1-end) {#1};
@@ -123,6 +123,19 @@
 	\renewcommand{\prevstep}{#1-end}
 	\renewcommand{\currentdist}{dist-connector-begin}
 }
+
+\newcommand{\myloopgeneric}[5]
+{
+	\node [if, \currentdist, below of = \prevstep] (#1) {#2};
+	\draw [mpath] (\prevstep) -- (#1);
+	\draw [mpath] (#1.east) -- node [anchor = west, xshift = 1em] {#4} +(1em, 0) |- (#3.east);
+	\draw (#1.south) +(-1em, -1em) node [anchor = east] {#5};
+
+	\renewcommand{\prevstep}{#1}
+	\renewcommand{\currentdist}{dist}
+}
+
+\newcommand{\myloop}[3]{\myloopgeneric{#1}{#2}{#3}{Истина}{Ложь}}
 
 % #################################################################
 % Разное
