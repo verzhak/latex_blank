@@ -1,0 +1,83 @@
+
+% ############################################################################
+% Пакеты
+
+\usepackage{changepage}
+\usepackage{listingsutf8}
+
+\lstloadlanguages{C}
+\lstset
+{
+    language = C,
+	breaklines,
+%	columns = fullflexible,
+%	flexiblecolumns,
+	numbers = none,
+    basicstyle = \tt\fontsize{12pt}{12pt}\selectfont,
+    commentstyle = ,
+    showtabs = false, 
+    showspaces = false,
+    showstringspaces = false,
+    tabsize = 2,
+    inputencoding = utf8/cp1251,
+	frame = single,
+	showlines = true,
+	resetmargins = true
+}
+
+\newcounter{lstcon}
+\renewcommand{\thelstcon}{\arabic{section}.\arabic{lstcon}}
+
+% ############################################################################
+% Окружение для листингов
+
+%
+% \mylistingbegin{Метка в listing:}{Подпись}
+% \begin{lstlisting}
+%
+% Листинг
+%
+% \end{lstlisting}
+% \mylistingend
+%
+
+\newcommand{\mylistingcaption}{}
+\newcommand{\mylistinglabel}{}
+
+\newcommand{\mylistingbegin}[2]
+{
+	\refstepcounter{lstcon}
+	\renewcommand{\mylistingcaption}{\vbox{\small \centering Листинг~\thelstcon~---~#2}}
+	\renewcommand{\mylistinglabel}{\label{listing:#1}}
+	\begin{adjustwidth}{-\leftmargin}{\rightmargin}
+}
+
+\newcommand{\mylistingend}
+{
+	\mylistingcaption
+	\mylistinglabel
+	\end{adjustwidth}
+	\medskip
+}
+
+% #################################################################
+% Команды
+
+%
+% Добавление файла
+%
+% \mysource{Путь и имя файла}{Метка в listing:}{Подпись}
+%
+\newcommand{\mysource}[3]
+{
+	\refstepcounter{lstcon}
+	\label{listing:#2}
+	{
+		\lstinputlisting[]{#1}
+		\nopagebreak
+			
+		\vbox{\small \centering Листинг~\thelstcon~---~#3}
+		\bigskip
+	}
+}
+
