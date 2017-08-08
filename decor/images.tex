@@ -44,20 +44,18 @@
 
 \newcommand{\mimage}[4]
 {
-	\vbox
-	{
-		\begin{center}
+	\begin{figure}
+		
+		\refstepcounter{figure}
+		\label{image:#1}
+		
+		\includegraphics[#4]{#2}
 
-			\refstepcounter{figure}
-			\label{image:#1}
-			
-			\includegraphics[#4]{#2}
+		\medskip
 
-			\medskip
-			{\noindent \small Рисунок~\thefigure~---~#3}
+		{\noindent \small Рисунок~\thefigure~---~#3}
 
-		\end{center}
-	}
+	\end{figure}
 }
 
 % #################################################################
